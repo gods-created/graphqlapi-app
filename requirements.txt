@@ -1,3 +1,4 @@
 graphene
 graphene-django
 loguru
+django-cors-headers

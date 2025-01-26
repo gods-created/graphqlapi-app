@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-f00ae@ge6&+vh(crhhgt5!15%t3x&y_l5yqco^hr5--5hyrm4_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'corsheaders',
+    '*'
+]
 
 
 # Application definition
@@ -51,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'graphqlapi.urls'
