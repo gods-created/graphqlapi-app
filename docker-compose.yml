@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  app:
+    build: ./
+    restart: always 
+    ports:
+      - 8001:8001
+    environment:
+      - APP_NAME=graphqlapi
