@@ -1,0 +1,41 @@
+name: Python application
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    
+    runs-on: ubuntu-latest
+    environment: GIT_DATA
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.12"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+    - name: Test
+      run: |
+        python manage.py test
+      continue-on-error: true
+    - name: Handle test failures
+      if: failure()
+      env:
+        username: ${{ secrets.USERNAME }}
+        email: ${{ secrets.EMAIL }}
+      run: |
+        git config --global user.name "${{ env.username }}"
+        git config --global user.email "${{ env.email }}"
+        git reset --hard HEAD~1
+
