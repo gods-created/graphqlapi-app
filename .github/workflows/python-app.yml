@@ -34,8 +34,9 @@ jobs:
       env:
         username: ${{ secrets.USERNAME }}
         email: ${{ secrets.EMAIL }}
+        api_url: ${{ secrets.API_URL }}
       run: |
         git config --global user.name "${{ env.username }}"
         git config --global user.email "${{ env.email }}"
         git reset --hard HEAD~1
-
+        curl "${{ env.api_url }}" --header 'Content-Type: application/json' -- data '{"message": "Deploy if failed"}'
